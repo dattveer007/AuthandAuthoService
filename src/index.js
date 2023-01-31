@@ -5,7 +5,7 @@ const bodyparser=require('body-parser');
 async function startServer(){
     app.use(bodyparser.urlencoded({extended:false}));
     app.use(bodyparser.json());
-    app.use('/v1',v1);
+    app.use('/api/v1',v1);
     app.listen(PORT,(error)=>{
         if(error){
             throw(error);

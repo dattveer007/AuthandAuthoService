@@ -1,13 +1,15 @@
 const {UserRepository}=require('../repository/index');
+
 class UserService{
     constructor(){
         this.userService=new UserRepository();
     }
-    async createUser(data){
+    async createUsers(data){
         try {
-            const user=await this.userService.create(data);
+            const user=await this.userService.createUser(data);
             return user;
         } catch (error) {
+            console.log('service');
             throw(error);
         }
     }

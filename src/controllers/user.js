@@ -1,23 +1,24 @@
 const {UserService}=require('../services/index');
+const user=new UserService();
 class UserController{
-    constructor(){
-        this.user=new UserService();
-    }
-    async create(req,res){
+   
+    async  create(req,res){
         try {
-            const data={
-                Email:req.body.Email,
-                Password:req.body.Password
-            }
-            const User=await this.user.createUser(data);
-            return res.staus(201).json({
+            // const data={
+            //     Email:req.body.Email,
+            //     Password:req.body.Password
+            // }
+            const User=await user.createUsers(req.body);
+
+            return res.status(202).json({
                 success:true,
-                user:User,
                 error:{}
-            })
+            });
 
 
         } catch (error) {
+        
+            console.log("dutta");
             return res.status(401).json({
                 success:false,
                 err:{error}
@@ -26,7 +27,9 @@ class UserController{
     }
     async destroy(req,res){
         try {
-            const response=await this.user.destroyUser(req.params.id);
+
+            const response=await user.destroyUser(req.query.id);
+             
             return res.status(200).json({
                 success:true,
                 error:{}
