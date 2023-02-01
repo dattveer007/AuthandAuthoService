@@ -4,10 +4,7 @@ class UserController{
    
     async  create(req,res){
         try {
-            // const data={
-            //     Email:req.body.Email,
-            //     Password:req.body.Password
-            // }
+           
             const User=await user.createUsers(req.body);
 
             return res.status(202).json({
@@ -23,6 +20,24 @@ class UserController{
                 success:false,
                 err:{error}
             })
+        }
+    }
+    async logIn(req,res){
+        try {
+            const data=req.headers;
+
+            const response=await user.signIn(data);
+            return res.status(201).json({
+                success:true,
+                token:response,
+                error:{}
+            });
+
+        } catch (error) {
+            return res.status(401).json({
+                success:false,
+                err:error
+            });
         }
     }
     async destroy(req,res){
@@ -41,5 +56,6 @@ class UserController{
             })
         }
     }
+    
 }
 module.exports=UserController;

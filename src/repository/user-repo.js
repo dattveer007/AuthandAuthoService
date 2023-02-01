@@ -11,6 +11,24 @@ class UserRepository{
             throw(error);
         }
     }
+   async sigin(data){
+
+    try {
+        console.log(data);
+        const user=await User.findOne({
+            where:{
+                Email:data.email
+            }
+        },{
+            attributes:['Email','Password','id']
+        });
+
+        return user;
+    } catch (error) {
+
+        throw(error);
+    }
+   }
     async destroy(uid){
         try {
             const response=await User.destroy({
@@ -19,7 +37,7 @@ class UserRepository{
                 }
             })
         } catch (error) {
-            console.log(repo);
+
             throw(error);
         }
     }
