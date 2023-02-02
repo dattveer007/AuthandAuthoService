@@ -56,6 +56,22 @@ class UserController{
             })
         }
     }
+    async validate(req,res){
+        try {
+            const token=req.headers;
+            const response=await user.isAuthenticated(token);
+            return res.status(200).json({
+                success:'true',
+                data:response,
+                error:{}
+            })
+        } catch (error) {
+            return res.status(401).json({
+                success:"false",
+                err:error
+            })
+        }
+    }
     
 }
 module.exports=UserController;

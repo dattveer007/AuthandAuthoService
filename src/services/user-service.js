@@ -44,10 +44,21 @@ class UserService{
         }
 
     }
-    createToken(user){
+    async isAuthenticated(data){
+        try{
+            const user=this.verifyToken(data.token);
+            console.log(user);
+            const response=await this.userService.check(user);
+            return response;
+        }
+        catch(error){
+            throw(error);
+        }
+    }
+     createToken(user){
         try{
 
-            const token=jwt.sign(user,Key,{
+            const token= jwt.sign(user,Key,{
                 expiresIn:'1h'
             })
             return token;
@@ -56,9 +67,10 @@ class UserService{
             throw{error:"Token not generated"};
         }
     }
-    verifyToken(token){
+     verifyToken(token){
         try{
-            const response=jwt.verify(token,Key);
+           
+            const response= jwt.verify(token,Key);
             return response;
         }
         catch(error){
@@ -76,5 +88,6 @@ class UserService{
             throw{err:"Password doesnt match"};
         }
     }
+    
 }
 module.exports=UserService;

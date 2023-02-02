@@ -41,5 +41,18 @@ class UserRepository{
             throw(error);
         }
     }
+    async check(user){
+        try {
+            const response=await User.findOne({
+                where:{
+                    Email:user.Email,
+                }
+
+            });
+            return response;
+        } catch (error) {
+            throw({error:"User not found"})
+        }
+    }
 }
 module.exports=UserRepository;
