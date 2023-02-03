@@ -1,4 +1,4 @@
-const {User}=require('../models/index');
+const {User,Role}=require('../models/index');
 class UserRepository{
 
     async createUser(data){
@@ -52,6 +52,18 @@ class UserRepository{
             return response;
         } catch (error) {
             throw({error:"User not found"})
+        }
+    }
+    async validateAdmin(userId){
+        try {
+            
+            const user=await User.findByPk(userId);
+            const role=await Role.findByPk(1);
+            const response=await user.hasRole(role);
+           
+            return response;
+        } catch (error) {
+            throw{err:"Repo error"};
         }
     }
 }

@@ -72,6 +72,21 @@ class UserController{
             })
         }
     }
-    
+    async authorize(req,res){
+        try {
+            const data=req.body.id;
+            const response=await user.isAdmin(data);
+            return res.status(200).json({
+                success:true,
+                role:response,
+                err:{}
+            })
+        } catch (error) {
+            return res.status(401).json({
+                success:false,
+                err:error
+            })
+        }
+    }
 }
 module.exports=UserController;

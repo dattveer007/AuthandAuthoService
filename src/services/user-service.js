@@ -40,7 +40,7 @@ class UserService{
             return token;
             
         } catch (error) {
-            throw(error);
+            throw{err:"Service layer error"};
         }
 
     }
@@ -52,6 +52,14 @@ class UserService{
             return response;
         }
         catch(error){
+            throw(error);
+        }
+    }
+    async isAdmin(userId){
+        try {
+            const response=await this.userService.validateAdmin(userId);
+            return response;
+        } catch (error) {
             throw(error);
         }
     }

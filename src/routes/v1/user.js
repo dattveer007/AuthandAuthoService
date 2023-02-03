@@ -5,4 +5,5 @@ router.post('/signup',user.create);
 router.delete('/delete',user.destroy);
 router.get('/signIn',user.logIn);
 router.get('/validate',user.validate);
+router.get('/isAdmin',user.authorize);
 module.exports=router;
