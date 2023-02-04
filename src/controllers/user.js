@@ -1,5 +1,6 @@
 const {UserService}=require('../services/index');
 const user=new UserService();
+const {StatusCodes}=require('http-status-codes');
 class UserController{
    
     async  create(req,res){
@@ -7,7 +8,7 @@ class UserController{
            
             const User=await user.createUsers(req.body);
 
-            return res.status(202).json({
+            return res.status(StatusCodes.CREATED).json({
                 success:true,
                 error:{}
             });
@@ -16,7 +17,7 @@ class UserController{
         } catch (error) {
         
 
-            return res.status(401).json({
+            return res.status(error.StatusCode).json({
                 success:false,
                 err:{error}
             })
@@ -34,7 +35,7 @@ class UserController{
             });
 
         } catch (error) {
-            return res.status(401).json({
+            return res.status(StatusCodes.OK).json({
                 success:false,
                 err:error
             });
@@ -45,7 +46,7 @@ class UserController{
 
             const response=await user.destroyUser(req.query.id);
              
-            return res.status(200).json({
+            return res.status(StatusCodes.OK).json({
                 success:true,
                 error:{}
             })
@@ -60,7 +61,7 @@ class UserController{
         try {
             const token=req.headers;
             const response=await user.isAuthenticated(token);
-            return res.status(200).json({
+            return res.status(StatusCodes.OK).json({
                 success:'true',
                 data:response,
                 error:{}
@@ -76,7 +77,7 @@ class UserController{
         try {
             const data=req.body.id;
             const response=await user.isAdmin(data);
-            return res.status(200).json({
+            return res.status(StatusCodes.OK).json({
                 success:true,
                 role:response,
                 err:{}
