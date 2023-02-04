@@ -11,7 +11,9 @@ class UserService{
             const user=await this.userService.createUser(data);
             return user;
         } catch (error) {
-            console.log('service');
+            if(error=="SequelizeValidationError"){
+                throw(error);
+            }
             throw(error);
         }
     }
